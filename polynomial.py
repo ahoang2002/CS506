@@ -10,7 +10,7 @@ class Int:
         self.i = i
     
     def __repr__(self):
-        return str(self.i)
+        return str(self.i);;;;;
 
 class Add:
     def __init__(self, p1, p2):
