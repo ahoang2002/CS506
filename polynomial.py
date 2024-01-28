@@ -12,6 +12,8 @@ class Int:
     def __repr__(self):
         return str(self.i)
     
+    def evaluate(self, x):
+        return self.i
 
 class Add:
     def __init__(self, p1, p2):
@@ -21,6 +23,9 @@ class Add:
     def __repr__(self):
         return repr(self.p1) + " + " + repr(self.p2)
     
+    def evaluate(self, x):
+        assert(isinstance(self.p1, (Int, X, Add, Sub, Mul, Div)) and isinstance(self.p2, (Int, X, Add, Sub, Mul, Div)))
+        return self.p1.evaluate(x) + self.p2.evaluate(x)
 
 
 class Sub:
@@ -37,6 +42,9 @@ class Sub:
             return repr(self.p1) + " - ( " + repr(self.p2) + " )"
         return repr(self.p1) + " - " + repr(self.p2)
     
+    def evaluate(self, x):
+        assert(isinstance(self.p1, (Int, X, Add, Sub, Mul, Div)) and isinstance(self.p2, (Int, X, Add, Sub, Mul, Div)))
+        return self.p1.evaluate(x) - self.p2.evaluate(x)
     
 class Mul:
     def __init__(self, p1, p2):
@@ -52,6 +60,9 @@ class Mul:
             return repr(self.p1) + " * ( " + repr(self.p2) + " )"
         return repr(self.p1) + " * " + repr(self.p2)
     
+    def evaluate(self, x):
+        assert(isinstance(self.p1, (Int, X, Add, Sub, Mul, Div)) and isinstance(self.p2, (Int, X, Add, Sub, Mul, Div)))
+        return self.p1.evaluate(x) * self.p2.evaluate(x)
 
 
 class Div:
@@ -68,5 +79,11 @@ class Div:
             return repr(self.p1) + " / ( " + repr(self.p2) + " )"
         return repr(self.p1) + " / " + repr(self.p2)
     
+    def evaluate(self, x):
+        assert(isinstance(self.p1, (Int, X, Add, Sub, Mul, Div)) and isinstance(self.p2, (Int, X, Add, Sub, Mul, Div)))
+        return self.p1.evaluate(x) / self.p2.evaluate(x)
+
+
 poly = Add( Add( Int(4), Int(3)), Add( X(), Div( Int(1), Add( Mul(X(), X()), Int(1)))))
 print(poly)
+print(poly.evaluate(-1))
